@@ -1,0 +1,106 @@
+<style>
+  td{
+    color:gray ;
+    height: 40px;
+    font-size: 15pt;
+  }
+
+  .photo{
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .return{
+    text-align: center;
+  }
+
+  h3{
+    text-align: center;
+  }
+  h5{
+    text-align: right;
+  }
+</style>
+
+<div class="form container">
+
+<h3><%= @restaurant.name %></h3>
+<%= @restaurant.category.name %>
+
+ 
+
+<table>
+
+<tr><td>Opening Hours:<%= @restaurant.opening_hours %></td></tr>
+<tr><td>Tel: <%= @restaurant.tel %></td></tr>
+<tr><td>Address: <%= @restaurant.address %></td></tr>
+<tr><td>Description:<%= @restaurant.description %></td></tr>
+<hr>
+<tr><td>
+ <%= link_to 'Dashboard', dashboard_restaurant_path(@restaurant), class: "btn btn-primary" %>
+
+ <%= render partial: "share/favorite", locals: {restaurant: @restaurant}%>
+
+ <%= render partial: "share/like", locals: {restaurant: @restaurant}%>
+</td></tr>
+
+
+<tr><td>
+  <div class="photo">
+<%= filestack_image @restaurant.image, transform: filestack_transform.resize(width:400, height:300) %>
+<%#= image_tag @restaurant.image, width:'300px' if@restaurant.image? %>
+ </div>
+</td></tr>
+
+
+<tr><td>
+  <div class="container">
+  <div class="row">
+   <%= form_for [@restaurant, @comment] do |f| %>
+    <div class="form-group">
+      <h3>留言板</h3>
+      <%= f.text_area :content, placeholder: "留個言吧", class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.submit class: "btn btn-primary" %>
+      <%= f.button "Cancel", type: :reset, class: "btn btn-default" %>
+    </div>
+  <% end %>
+  </div>
+</div>
+</td></tr>
+
+<tr><td>
+    <!-- 顯示與餐廳相關的評論 -->
+    <% @restaurant.comments.each do |comment| %>
+    <div>
+      <h4><%= comment.user.email.split('@').first %>
+      <% if current_user.admin? %>
+       <%= link_to "Delete", restaurant_comment_path(@restaurant, comment), method: :delete, data: {confirm: "天阿。你真的確定要刪除嗎?"} %>
+      <% end %>
+      </h4>
+      <p><%= simple_format comment.content %></p>
+      <p class="text-muted">
+        <h5><%= time_ago_in_words(comment.created_at) %> ago </h5>
+      </p>
+    </div>
+    <hr>
+    <% end %>
+</td></tr>
+
+<tr><td>
+  <div class="return">
+<%= link_to restaurants_path do %>
+        <button type="button" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-repeat"></span> back to index 
+        </button>
+        <%end%>
+  </div>
+</td></tr>
+
+
+</table>
+
+</div>
+
