@@ -39,6 +39,8 @@ gem 'kaminari'
 gem 'bootstrap-sass', '~>3.3.7'
 gem 'jquery-rails'
 gem 'filestack-rails', '~> 3.1.0'
+gem 'mini_magick'
+gem 'fog'
 
 
 group :development, :test do

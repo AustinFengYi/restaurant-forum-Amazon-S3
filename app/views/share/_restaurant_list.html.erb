@@ -6,9 +6,9 @@
   margin-bottom: 20px;
 }
 
-/*.restaurant-item img {
-  max-height: 180px;
-  width: 100%;*/
+.restaurant-item img {
+  width: 100%;
+  max-height: 149px;
 }
 
 .restaurant-item .caption {
@@ -27,8 +27,8 @@
         <div class="restaurant-item">
           <div class="image-adaptar">
           <%=link_to restaurant_path(restaurant) do %>
-            <%= filestack_image restaurant.image, transform: filestack_transform.resize( height:180) %>
-            <%#= image_tag restaurant.image, class: "img-responsive center-block" %>
+            <%#= filestack_image restaurant.image, transform: filestack_transform.resize( height:180) %>
+            <%= image_tag restaurant.image, class: "img-responsive center-block" %>
          <%end%></div>
 
           <div class="caption">

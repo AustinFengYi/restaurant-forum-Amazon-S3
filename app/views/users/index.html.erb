@@ -38,7 +38,7 @@
       <div class="col-md-3 col-sm-4 col-xs-6 text-center user-item">
 
         <%= link_to user_path(user) do %>
-          <%= filestack_image user.image, transform: filestack_transform.resize(width:150, height:100) %>
+          <%= image_tag @image.image  %>
           <h4><%= user.name %></h4>
         <% end %>
 
